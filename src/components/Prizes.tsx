@@ -5,62 +5,62 @@ import { Trophy, Medal, Award, Star } from 'lucide-react';
 const Prizes = () => {
   const prizes = [
     {
-      position: "પ્રથમ સ્થાન",
+      position: "First Place",
       amount: "₹10,000",
       icon: Trophy,
       color: "from-yellow-400 to-yellow-600",
       borderColor: "border-yellow-400",
-      benefits: ["નાણાકીય ઇનામ", "સર્ટિફિકેટ", "ઇન્ક્યુબેશન સપોર્ટ"],
+      benefits: ["Cash Prize", "Certificate", "Incubation Support"],
       rank: "🥇"
     },
     {
-      position: "દ્વિતીય સ્થાન",
+      position: "Second Place",
       amount: "₹5,000",
       icon: Medal,
       color: "from-gray-300 to-gray-500",
       borderColor: "border-gray-400",
-      benefits: ["નાણાકીય ઇનામ", "સર્ટિફિકેટ", "મેન્ટરશિપ"],
+      benefits: ["Cash Prize", "Certificate", "Mentorship"],
       rank: "🥈"
     },
     {
-      position: "ત્રિતીય સ્થાન",
+      position: "Third Place",
       amount: "₹3,000",
       icon: Award,
       color: "from-amber-600 to-amber-800",
       borderColor: "border-amber-600",
-      benefits: ["નાણાકીય ઇનામ", "સર્ટિફિકેટ", "ગાઇડન્સ"],
+      benefits: ["Cash Prize", "Certificate", "Guidance"],
       rank: "🥉"
     },
     {
-      position: "સાંત્વના પુરસ્કાર",
+      position: "Consolation Prize",
       amount: "Top 10",
       icon: Star,
       color: "from-purple-400 to-purple-600",
       borderColor: "border-purple-400",
-      benefits: ["Appreciation Certificate", "પ્રોજેક્ટ ડિસ્પ્લે", "નેટવર્કિંગ"],
+      benefits: ["Appreciation Certificate", "Project Display", "Networking"],
       rank: "⭐"
     }
   ];
 
   const additionalBenefits = [
     {
-      title: "ઇન્ક્યુબેશન સપોર્ટ",
-      description: "વિજેતા ટીમોને તેમના આઈડિયાને બિઝનેસમાં ફેરવવા માટે સપોર્ટ",
+      title: "Incubation Support",
+      description: "Support for winning teams to convert their ideas into business",
       icon: "🚀"
     },
     {
-      title: "મેન્ટરશિપ પ્રોગ્રામ",
-      description: "ઇન્ડસ્ટ્રી એક્સપર્ટ્સ સાથે 6 મહિનાનો મેન્ટરશિપ",
+      title: "Mentorship Program",
+      description: "6-month mentorship with industry experts",
       icon: "👨‍🏫"
     },
     {
-      title: "નેટવર્કિંગ",
-      description: "ઇનોવેટર્સ અને પ્રોફેશનલ્સ સાથે કનેક્ટ થવાની તક",
+      title: "Networking",
+      description: "Opportunity to connect with innovators and professionals",
       icon: "🤝"
     },
     {
-      title: "મીડિયા કવરેજ",
-      description: "તમારા આઈડિયાને વ્યાપક પ્રચાર અને માન્યતા",
+      title: "Media Coverage",
+      description: "Wide publicity and recognition for your ideas",
       icon: "📺"
     }
   ];
@@ -70,10 +70,10 @@ const Prizes = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-            ઇનામો અને માન્યતા
+            Prizes and Recognition
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            તમારા નવીન વિચારો અને કડી મહેનત માટે આકર્ષક ઇનામો અને લાંબા ગાળાના ફાયદા
+            Attractive prizes and long-term benefits for your innovative ideas and hard work
           </p>
         </div>
 
@@ -112,7 +112,7 @@ const Prizes = () => {
           <Card className="bg-gradient-hero text-white border-0 shadow-float max-w-md mx-auto">
             <CardContent className="p-8">
               <div className="text-5xl mb-4">💰</div>
-              <h3 className="text-2xl font-heading font-bold mb-2">કુલ ઇનામ રાશિ</h3>
+              <h3 className="text-2xl font-heading font-bold mb-2">Total Prize Money</h3>
               <div className="text-4xl font-bold">₹18,000</div>
               <p className="text-sm mt-2 opacity-90">+ Additional Benefits</p>
             </CardContent>
@@ -122,7 +122,7 @@ const Prizes = () => {
         {/* Additional Benefits */}
         <div>
           <h3 className="text-3xl font-heading font-bold text-center text-foreground mb-12">
-            વધારાના ફાયદા
+            Additional Benefits
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {additionalBenefits.map((benefit, index) => (
@@ -150,13 +150,13 @@ const Prizes = () => {
           <Card className="bg-gradient-accent border-0 shadow-card max-w-4xl mx-auto">
             <CardContent className="p-8">
               <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                શું તમે તૈયાર છો?
+                Are You Ready?
               </h3>
               <p className="text-muted-foreground mb-6">
-                તમારા આઈડિયા સાથે આ ઐતિહાસિક ચેલેન્જનો ભાગ બનો અને સમાજમાં સકારાત્મક પરિવર્તન લાવો
+                Be part of this historic challenge with your ideas and bring positive change to society
               </p>
               <Badge variant="secondary" className="text-lg px-6 py-2">
-                Registration Opens: 21 જુલાઈ, 2025
+                Registration Opens: 21 July, 2025
               </Badge>
             </CardContent>
           </Card>

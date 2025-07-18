@@ -7,41 +7,41 @@ const Timeline = () => {
     {
       id: 1,
       title: "Online Registration & Abstract Submission",
-      period: "21 જુલાઈ - 1 ઓગસ્ટ",
+      period: "21 July - 1 August",
       status: "upcoming",
       icon: CheckCircle,
       details: [
-        "નામ, કેટેગરી, ટીમ મેમ્બરો",
-        "1-પેજ આઈડિયા સમરી",
-        "ફોટો / સ્કેચ / ટૂલ માહિતી"
+        "Name, Category, Team Members",
+        "1-Page Idea Summary",
+        "Photo / Sketch / Tool Information"
       ],
-      criteria: ["નવીનતા", "વ્યાવહારિકતા", "સમાજ પર ઇમ્પેક્ટ"]
+      criteria: ["Innovation", "Practicality", "Impact on Society"]
     },
     {
       id: 2,
       title: "Idea Validation & Mentorship",
-      period: "2 ઓગસ્ટ - 10 ઓગસ્ટ",
+      period: "2 August - 10 August",
       status: "upcoming",
       icon: Clock,
       details: [
-        "Shortlisted ટીમો માટે મેન્ટરિંગ",
-        "ડિઝાઇન ટેમ્પલેટ અને સેમિનાર",
-        "Zoom Mentoring સેશન",
-        "પ્રોગ્રેસ રિપોર્ટ સબમિશન"
+        "Mentoring for shortlisted teams",
+        "Design templates and seminars",
+        "Zoom mentoring sessions",
+        "Progress report submission"
       ],
       output: ["Initial Mockup / Layout", "Concept PPT", "Pitch Script"]
     },
     {
       id: 3,
       title: "Prototype / Campaign Presentation",
-      period: "12 ઓગસ્ટ - 20 ઓગસ્ટ",
+      period: "12 August - 20 August",
       status: "upcoming",
       icon: Award,
       details: [
-        "Virtual OR Physical પ્રેઝન્ટેશન",
-        "Pre-recorded Demo (8 મિનિટ)",
-        "Final Presentation",
-        "Q&A with Judges (5 મિનિટ)"
+        "Virtual OR Physical presentation",
+        "Pre-recorded demo (8 minutes)",
+        "Final presentation",
+        "Q&A with judges (5 minutes)"
       ],
       criteria: ["Creativity", "Implementation Feasibility", "Safety Impact", "Scalability", "Teamwork"]
     }
@@ -49,7 +49,7 @@ const Timeline = () => {
 
   const finalEvent = {
     title: "Final Award Ceremony & Exhibition",
-    date: "25 ઓગસ્ટ, ૢ025",
+    date: "25 August, 2025",
     venue: "Government Polytechnic, Ahmedabad",
     program: [
       "Chief Guest Speech",
@@ -65,10 +65,10 @@ const Timeline = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-            ચેલેન્જના રાઉન્ડ્સ
+            Challenge Rounds
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            ત્રણ મુખ્ય રાઉન્ડ્સ દ્વારા તમારા આઈડિયાને વાસ્તવિકતામાં ફેરવો
+            Transform your ideas into reality through three main rounds
           </p>
         </div>
 
@@ -95,7 +95,7 @@ const Timeline = () => {
                         <Calendar className="h-4 w-4 text-primary" />
                         <span className="text-muted-foreground">{round.period}</span>
                         <Badge variant="outline" className="ml-auto">
-                          {round.status === "upcoming" ? "આગામી" : "પૂર્ણ"}
+                          {round.status === "upcoming" ? "Upcoming" : "Completed"}
                         </Badge>
                       </div>
                     </div>
@@ -104,7 +104,7 @@ const Timeline = () => {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <h4 className="font-semibold text-foreground mb-3">સામગ્રી:</h4>
+                      <h4 className="font-semibold text-foreground mb-3">Requirements:</h4>
                       <ul className="space-y-2">
                         {round.details.map((detail, idx) => (
                           <li key={idx} className="flex items-center text-muted-foreground">
@@ -117,7 +117,7 @@ const Timeline = () => {
                     <div>
                       {round.criteria && (
                         <>
-                          <h4 className="font-semibold text-foreground mb-3">માપદંડ:</h4>
+                          <h4 className="font-semibold text-foreground mb-3">Criteria:</h4>
                           <ul className="space-y-2">
                             {round.criteria.map((criterion, idx) => (
                               <li key={idx} className="flex items-center text-muted-foreground">
@@ -158,16 +158,16 @@ const Timeline = () => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <div>
-                <h4 className="font-semibold mb-2">📅 તારીખ</h4>
+                <h4 className="font-semibold mb-2">📅 Date</h4>
                 <p>{finalEvent.date}</p>
               </div>
               <div>
-                <h4 className="font-semibold mb-2">📍 સ્થળ</h4>
+                <h4 className="font-semibold mb-2">📍 Venue</h4>
                 <p>{finalEvent.venue}</p>
               </div>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">પ્રોગ્રામ:</h4>
+              <h4 className="font-semibold mb-4">Program:</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {finalEvent.program.map((item, idx) => (
                   <div key={idx} className="bg-white/10 rounded-lg p-3 text-sm">

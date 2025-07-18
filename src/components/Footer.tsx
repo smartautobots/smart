@@ -3,18 +3,18 @@ import { Mail, Phone, MapPin, Heart } from 'lucide-react';
 
 const Footer = () => {
   const quickLinks = [
-    { name: "હોમ", href: "#home" },
-    { name: "વિશે", href: "#about" },
-    { name: "કેટેગરીઝ", href: "#categories" },
-    { name: "ટાઈમલાઈન", href: "#timeline" },
-    { name: "ઈનામો", href: "#prizes" },
-    { name: "સંપર્ક", href: "#contact" }
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Categories", href: "#categories" },
+    { name: "Timeline", href: "#timeline" },
+    { name: "Prizes", href: "#prizes" },
+    { name: "Contact", href: "#contact" }
   ];
 
   const importantDates = [
-    { event: "Registration Opens", date: "21 જુલાઈ 2025" },
-    { event: "Round 1 Ends", date: "1 ઓગસ્ટ 2025" },
-    { event: "Final Event", date: "25 ઓગસ્ટ 2025" }
+    { event: "Registration Opens", date: "21 July 2025" },
+    { event: "Round 1 Ends", date: "1 August 2025" },
+    { event: "Final Event", date: "25 August 2025" }
   ];
 
   return (
@@ -29,22 +29,22 @@ const Footer = () => {
                 <span className="text-white font-bold text-xl">🚦</span>
               </div>
               <div>
-                <h3 className="text-xl font-heading font-bold">રોડ સેફ્ટી ચેલેન્જ</h3>
+                <h3 className="text-xl font-heading font-bold">Road Safety Challenge</h3>
                 <p className="text-sm text-gray-400">2025</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              યુવાનોમાં માર્ગ સલામતી અંગે જાગૃતિ અને નવીન ઉકેલો દ્વારા અકસ્માતો ઘટાડવાનો પ્રયાસ.
+              Raising awareness about road safety among youth and reducing accidents through innovative solutions.
             </p>
             <div className="flex items-center text-sm text-gray-400">
               <Heart className="h-4 w-4 text-red-500 mr-2" />
-              સુરક્ષિત રસ્તા, સુરક્ષિત ભવિષ્ય
+              Safe Roads, Safe Future
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4">ઝડપી લિંક્સ</h4>
+            <h4 className="text-lg font-heading font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
@@ -61,7 +61,7 @@ const Footer = () => {
 
           {/* Important Dates */}
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4">મહત્વપૂર્ણ તારીખો</h4>
+            <h4 className="text-lg font-heading font-semibold mb-4">Important Dates</h4>
             <ul className="space-y-3">
               {importantDates.map((item, index) => (
                 <li key={index} className="text-sm">
@@ -74,7 +74,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-heading font-semibold mb-4">સંપર્ક</h4>
+            <h4 className="text-lg font-heading font-semibold mb-4">Contact</h4>
             <div className="space-y-3">
               <div className="flex items-center text-sm text-gray-400">
                 <Mail className="h-4 w-4 mr-3 text-primary" />
@@ -89,8 +89,12 @@ const Footer = () => {
                 Government Polytechnic, Ahmedabad
               </div>
             </div>
-            <Button className="mt-4 w-full" size="sm">
-              અત્યારે રજિસ્ટર કરો
+            <Button 
+              className="mt-4 w-full" 
+              size="sm"
+              onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Register Now
             </Button>
           </div>
         </div>
@@ -98,19 +102,19 @@ const Footer = () => {
         {/* Organizer Section */}
         <div className="border-t border-gray-800 pt-8 mb-8">
           <div className="text-center">
-            <h4 className="text-lg font-heading font-semibold mb-4">આયોજક અને પાર્ટનર્સ</h4>
+            <h4 className="text-lg font-heading font-semibold mb-4">Organizers and Partners</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-gray-800 rounded-lg p-4">
-                <h5 className="font-semibold text-primary">પ્રોજેક્ટ અને ઇનોવેશન લૅબ</h5>
-                <p className="text-gray-400 text-sm">મુખ્ય આયોજક</p>
+                <h5 className="font-semibold text-primary">Project and Innovation Lab</h5>
+                <p className="text-gray-400 text-sm">Main Organizer</p>
               </div>
               <div className="bg-gray-800 rounded-lg p-4">
                 <h5 className="font-semibold text-primary">Gujarat RTO</h5>
-                <p className="text-gray-400 text-sm">સહયોગી પાર્ટનર</p>
+                <p className="text-gray-400 text-sm">Collaboration Partner</p>
               </div>
               <div className="bg-gray-800 rounded-lg p-4">
                 <h5 className="font-semibold text-primary">Traffic Police</h5>
-                <p className="text-gray-400 text-sm">સલાહકાર</p>
+                <p className="text-gray-400 text-sm">Advisor</p>
               </div>
             </div>
           </div>
@@ -120,10 +124,10 @@ const Footer = () => {
         <div className="border-t border-gray-800 pt-8 mb-8">
           <div className="text-center bg-gradient-hero rounded-lg p-6">
             <h3 className="text-2xl font-heading font-bold text-white mb-2">
-              "સુરક્ષા માટે વિચારો... ઈનોવેશનથી રસ્તાઓ બદલો!"
+              "Think for Safety... Change Roads through Innovation!"
             </h3>
             <p className="text-white/90">
-              આવો, મળીને માર્ગ સલામતીને વધુ સારી બનાવીએ
+              Let's work together to make road safety better
             </p>
           </div>
         </div>
@@ -135,7 +139,7 @@ const Footer = () => {
               © 2025 Road Safety Innovation Challenge. All rights reserved.
             </p>
             <p className="mt-2 md:mt-0">
-              પ્રોજેક્ટ અને ઇનોવેશન લૅબ દ્વારા ગૌરવપૂર્વક આયોજિત
+              Proudly organized by Project and Innovation Lab
             </p>
           </div>
         </div>

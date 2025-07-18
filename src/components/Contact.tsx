@@ -8,25 +8,25 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: Mail,
-      title: "ઈમેઈલ",
+      title: "Email",
       info: "roadsafety2025@innovationlab.in",
       link: "mailto:roadsafety2025@innovationlab.in"
     },
     {
       icon: Phone,
-      title: "ફોન",
+      title: "Phone",
       info: "+91 98765 43210",
       link: "tel:+919876543210"
     },
     {
       icon: MapPin,
-      title: "સ્થળ",
+      title: "Location",
       info: "Government Polytechnic, Ahmedabad",
       link: "#"
     },
     {
       icon: Globe,
-      title: "વેબસાઈટ",
+      title: "Website",
       info: "www.roadsafetychallenge2025.in",
       link: "https://www.roadsafetychallenge2025.in"
     }
@@ -36,32 +36,32 @@ const Contact = () => {
     {
       icon: MessageCircle,
       title: "WhatsApp Group",
-      info: "ચેલેન્જ અપડેટ્સ",
+      info: "Challenge Updates",
       color: "bg-green-500"
     },
     {
       icon: Users,
       title: "Facebook",
-      info: "કમ્યુનિટી પેજ",
+      info: "Community Page",
       color: "bg-blue-600"
     }
   ];
 
   const organizingTeam = [
     {
-      name: "પ્રોજેક્ટ અને ઇનોવેશન લૅબ",
-      role: "મુખ્ય આયોજક",
-      description: "ટેકનોલોજી અને ઇનોવેશનના ક્ષેત્રમાં અગ્રેસર સંસ્થા"
+      name: "Project and Innovation Lab",
+      role: "Main Organizer",
+      description: "Leading organization in technology and innovation"
     },
     {
       name: "Gujarat RTO",
-      role: "સહયોગી પાર્ટનર",
-      description: "માર્ગ સલામતી અને ટ્રાફિક નિયમોમાં નિષ્ણાત"
+      role: "Collaboration Partner",
+      description: "Expert in road safety and traffic rules"
     },
     {
       name: "Traffic Police",
-      role: "સલાહકાર",
-      description: "વ્યાવહારિક માર્ગદર્શન અને સપોર્ટ"
+      role: "Advisor",
+      description: "Practical guidance and support"
     }
   ];
 
@@ -70,10 +70,10 @@ const Contact = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-            સંપર્ક અને માહિતી
+            Contact and Information
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            કોઈપણ પ્રશ્ન અથવા મદદ માટે અમારી સાથે સંપર્ક કરો. અમે તમારી સહાયતા માટે હંમેશા તૈયાર છીએ.
+            Contact us for any questions or assistance. We are always ready to help you.
           </p>
         </div>
 
@@ -83,7 +83,7 @@ const Contact = () => {
             <Card className="bg-white border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-heading font-bold text-foreground">
-                  સંપર્ક વિગતો
+                  Contact Details
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -110,7 +110,7 @@ const Contact = () => {
             <Card className="bg-white border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-heading font-bold text-foreground">
-                  સોશિયલ મીડિયા
+                  Social Media
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -132,7 +132,7 @@ const Contact = () => {
             <Card className="bg-white border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-heading font-bold text-foreground">
-                  આયોજક ટીમ
+                  Organizing Team
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -152,45 +152,45 @@ const Contact = () => {
             <Card className="bg-white border-0 shadow-card">
               <CardHeader>
                 <CardTitle className="text-2xl font-heading font-bold text-foreground">
-                  પ્રશ્ન પૂછો
+                  Ask Questions
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      નામ *
+                      Name *
                     </label>
-                    <Input placeholder="તમારું નામ" />
+                    <Input placeholder="Your name" />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      ઈમેઈલ *
+                      Email *
                     </label>
-                    <Input type="email" placeholder="તમારું ઈમેઈલ" />
+                    <Input type="email" placeholder="Your email" />
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    કેટેગરી
+                    Category
                   </label>
                   <select className="w-full p-3 border border-input rounded-md bg-background">
-                    <option>સ્કૂલ કેટેગરી</option>
-                    <option>કોલેજ કેટેગરી</option>
-                    <option>ઓપન કેટેગરી</option>
+                    <option>School Category</option>
+                    <option>College Category</option>
+                    <option>Open Category</option>
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-foreground mb-2">
-                    સંદેશ *
+                    Message *
                   </label>
                   <Textarea 
-                    placeholder="તમારો પ્રશ્ન અથવા સંદેશ લખો..."
+                    placeholder="Write your question or message..."
                     rows={5}
                   />
                 </div>
                 <Button className="w-full" size="lg">
-                  સંદેશ મોકલો
+                  Send Message
                 </Button>
               </CardContent>
             </Card>
@@ -199,7 +199,7 @@ const Contact = () => {
             <Card className="bg-gradient-hero text-white border-0 shadow-card mt-8">
               <CardContent className="p-6 text-center">
                 <h3 className="text-xl font-heading font-bold mb-4">
-                  ઝડપી લિંક્સ
+                  Quick Links
                 </h3>
                 <div className="space-y-3">
                   <Button variant="outline" className="w-full border-white text-white hover:bg-white hover:text-primary">
@@ -222,18 +222,18 @@ const Contact = () => {
           <Card className="bg-white border-l-4 border-primary shadow-card">
             <CardContent className="p-6">
               <h3 className="text-xl font-heading font-bold text-foreground mb-4">
-                📢 મહત્વપૂર્ણ સૂચના
+                📢 Important Notice
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-muted-foreground">
                 <ul className="space-y-2">
-                  <li>• Registration માત્ર ઓનલાઇન જ સ્વીકારવામાં આવશે</li>
-                  <li>• તમામ અપડેટ્સ ઈમેઈલ અને WhatsApp દ્વારા મળશે</li>
-                  <li>• Plagiarism ની સખત તપાસ કરવામાં આવશે</li>
+                  <li>• Registration will only be accepted online</li>
+                  <li>• All updates will be received via email and WhatsApp</li>
+                  <li>• Plagiarism will be strictly checked</li>
                 </ul>
                 <ul className="space-y-2">
-                  <li>• ટીમમાં મહત્તમ 4 મેમ્બર્સ હોઈ શકે</li>
+                  <li>• Maximum 4 members in a team</li>
                   <li>• Registration fee: Free</li>
-                  <li>• Certificates સૌને મળશે</li>
+                  <li>• Certificates will be given to all</li>
                 </ul>
               </div>
             </CardContent>

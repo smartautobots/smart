@@ -7,27 +7,27 @@ const Categories = () => {
     {
       id: 1,
       icon: GraduationCap,
-      title: "સ્કૂલ કેટેગરી",
-      target: "ધોરણ 9થી 12",
-      examples: ["પોસ્ટર ડિઝાઇન", "પ્રોજેક્ટ મોડલ", "અવેરનેસ કેમ્પેઇન"],
+      title: "School Category",
+      target: "Grade 9-12",
+      examples: ["Poster Design", "Project Model", "Awareness Campaign"],
       color: "bg-blue-500",
       bgGradient: "from-blue-50 to-blue-100"
     },
     {
       id: 2,
       icon: Building,
-      title: "કોલેજ કેટેગરી",
+      title: "College Category",
       target: "Diploma, UG, PG",
-      examples: ["મોબાઇલ એપ્લિકેશન", "ડ્રોન ટેકનોલોજી", "AI સોલ્યુશન"],
+      examples: ["Mobile Application", "Drone Technology", "AI Solution"],
       color: "bg-green-500",
       bgGradient: "from-green-50 to-green-100"
     },
     {
       id: 3,
       icon: Globe,
-      title: "ઓપન કેટેગરી",
-      target: "રિસર્ચર્સ, પ્રોફેશનલ્સ",
-      examples: ["પ્રોટોટાઇપ", "પાઇલટ પ્લાન", "Advanced AI Solutions"],
+      title: "Open Category",
+      target: "Researchers, Professionals",
+      examples: ["Prototype", "Pilot Plan", "Advanced AI Solutions"],
       color: "bg-purple-500",
       bgGradient: "from-purple-50 to-purple-100"
     }
@@ -35,17 +35,17 @@ const Categories = () => {
 
   const tracks = [
     {
-      title: "ટેકનોલોજી ટ્રેક",
+      title: "Technology Track",
       items: ["Smart Zebra Crossing", "AI-based Accident Detection", "Mobile Alert Apps"],
       icon: "💻"
     },
     {
-      title: "એજ્યુકેશન ટ્રેક",
-      items: ["શોર્ટ ફિલ્મ", "સ્ટ્રીટ પ્લે", "ઇનોવેટિવ પોસ્ટર્સ"],
+      title: "Education Track",
+      items: ["Short Films", "Street Plays", "Innovative Posters"],
       icon: "📚"
     },
     {
-      title: "ડિઝાઇન ટ્રેક",
+      title: "Design Track",
       items: ["Intersection Redesign", "Speed Calming Ideas", "Eco-friendly Signage"],
       icon: "🎨"
     }
@@ -57,10 +57,10 @@ const Categories = () => {
         {/* Categories Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-            પાર્ટિસિપેશન કેટેગરીઝ
+            Participation Categories
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            તમારી યોગ્યતા અનુસાર યોગ્ય કેટેગરી પસંદ કરો અને પોતાના નવીન વિચારો રજૂ કરો
+            Choose the appropriate category according to your eligibility and present your innovative ideas
           </p>
         </div>
 
@@ -83,7 +83,7 @@ const Categories = () => {
                 </Badge>
               </CardHeader>
               <CardContent>
-                <h4 className="font-semibold text-foreground mb-3">ઉદાહરણો:</h4>
+                <h4 className="font-semibold text-foreground mb-3">Examples:</h4>
                 <ul className="space-y-2">
                   {category.examples.map((example, idx) => (
                     <li key={idx} className="flex items-center text-muted-foreground">
@@ -100,10 +100,10 @@ const Categories = () => {
         {/* Tracks Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-6">
-            મુખ્ય વિષયો (ટ્રેક્સ)
+            Main Topics (Tracks)
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            તમારી રુચિ અને કુશળતા અનુસાર કોઈ પણ ટ્રેક પસંદ કરીને તેમાં અસાધારણ કામ કરો
+            Choose any track according to your interest and skills and do exceptional work in it
           </p>
         </div>
 
