@@ -2,9 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* Road Safety Innovation Challenge 2025 Design System
+All colors MUST be HSL. Theme: Safety Orange & Innovation Blue
 */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -17,24 +19,43 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Safety Orange Theme */
+    --primary: 20 95% 55%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 20 95% 65%;
+    --primary-dark: 20 95% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Innovation Blue */
+    --secondary: 220 70% 50%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 220 70% 60%;
 
-    --muted: 210 40% 96.1%;
+    --muted: 20 20% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 45 100% 95%;
+    --accent-foreground: 20 95% 45%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 20 95% 55%;
+
+    /* Custom gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(20 95% 55%), hsl(220 70% 50%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(20 20% 98%));
+    --gradient-accent: linear-gradient(90deg, hsl(45 100% 95%), hsl(45 100% 90%));
+
+    /* Shadows */
+    --shadow-glow: 0 0 40px hsl(20 95% 55% / 0.3);
+    --shadow-card: 0 10px 30px -10px hsl(20 95% 55% / 0.1);
+    --shadow-float: 0 20px 40px -20px hsl(20 95% 55% / 0.2);
+
+    /* Typography */
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
 
     --radius: 0.5rem;
 
