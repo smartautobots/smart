@@ -21,37 +21,37 @@ const Hero = () => {
           {/* Event Badge */}
           <div className="inline-flex items-center px-4 py-2 bg-accent rounded-full text-accent-foreground font-medium mb-6 animate-float">
             <span className="mr-2">🚦</span>
-            પ્રોજેક્ટ અને ઇનોવેશન લૅબ દ્વારા આયોજિત
+            Organized by Project and Innovation Lab
           </div>
 
           {/* Main Title */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 leading-tight">
-            રોડ સેફ્ટી ઇનોવેશન
+            Road Safety Innovation
             <br />
-            <span className="text-primary-light">ચેલેન્જ ૨૦૨૫</span>
+            <span className="text-primary-light">Challenge 2025</span>
           </h1>
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
-            યુવાનોમાં માર્ગ સલામતી અંગે જાગૃતિ અને નવીન ઉકેલો દ્વારા અકસ્માતો ઘટાડવાનો પ્રયાસ
+            Raising awareness about road safety among youth and reducing accidents through innovative solutions
           </p>
 
           {/* Key Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-2xl mx-auto">
             <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20">
               <Calendar className="h-6 w-6 text-primary-light mx-auto mb-2" />
-              <p className="text-white font-semibold">21 જુલાઈ - 25 ઓગસ્ટ</p>
+              <p className="text-white font-semibold">21 July - 25 August</p>
               <p className="text-white/80 text-sm">2025</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20">
               <Users className="h-6 w-6 text-primary-light mx-auto mb-2" />
-              <p className="text-white font-semibold">3 કેટેગરીઝ</p>
-              <p className="text-white/80 text-sm">સ્કૂલ, કોલેજ, ઓપન</p>
+              <p className="text-white font-semibold">3 Categories</p>
+              <p className="text-white/80 text-sm">School, College, Open</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20">
               <Trophy className="h-6 w-6 text-primary-light mx-auto mb-2" />
               <p className="text-white font-semibold">₹18,000</p>
-              <p className="text-white/80 text-sm">કુલ ઈનામ રાશિ</p>
+              <p className="text-white/80 text-sm">Total Prize Money</p>
             </div>
           </div>
 
@@ -60,22 +60,24 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary-dark text-white text-lg px-8 py-3 animate-pulse-glow"
+              onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              અત્યારે રજિસ્ટર કરો
+              Register Now
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-primary text-lg px-8 py-3"
+              onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              વધુ જાણો
+              Learn More
             </Button>
           </div>
 
           {/* Tagline */}
           <div className="mt-12 p-6 bg-white/5 backdrop-blur-md rounded-lg border border-white/10">
             <p className="text-2xl font-heading font-semibold text-white">
-              "સુરક્ષા માટે વિચારો... ઈનોવેશનથી રસ્તાઓ બદલો!"
+              "Think for Safety... Change Roads through Innovation!"
             </p>
           </div>
         </div>

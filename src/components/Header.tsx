@@ -6,12 +6,12 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
-    { href: '#home', label: 'હોમ' },
-    { href: '#about', label: 'વિશે' },
-    { href: '#categories', label: 'કેટેગરીઝ' },
-    { href: '#timeline', label: 'ટાઈમલાઈન' },
-    { href: '#prizes', label: 'ઈનામો' },
-    { href: '#contact', label: 'સંપર્ક' },
+    { href: '#home', label: 'Home' },
+    { href: '#about', label: 'About' },
+    { href: '#categories', label: 'Categories' },
+    { href: '#timeline', label: 'Timeline' },
+    { href: '#prizes', label: 'Prizes' },
+    { href: '#contact', label: 'Contact' },
   ];
 
   return (
@@ -24,7 +24,7 @@ const Header = () => {
           </div>
           <div>
             <h1 className="text-xl font-heading font-bold text-foreground">
-              રોડ સેફ્ટી ચેલેન્જ
+              Road Safety Challenge
             </h1>
             <p className="text-sm text-muted-foreground">2025</p>
           </div>
@@ -45,8 +45,8 @@ const Header = () => {
 
         {/* Register Button */}
         <div className="hidden md:block">
-          <Button variant="default" className="animate-pulse-glow">
-            રજિસ્ટર કરો
+          <Button variant="default" className="animate-pulse-glow" onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}>
+            Register Here
           </Button>
         </div>
 
@@ -73,8 +73,8 @@ const Header = () => {
                 {item.label}
               </a>
             ))}
-            <Button variant="default" className="w-full mt-4">
-              રજિસ્ટર કરો
+            <Button variant="default" className="w-full mt-4" onClick={() => document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' })}>
+              Register Here
             </Button>
           </nav>
         </div>
