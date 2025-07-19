@@ -5,13 +5,13 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Mail, Phone, School, FileText, Loader2, Upload, CheckCircle } from 'lucide-react';
+import { Users, Mail, Phone, School, FileText, Loader2, Upload, CheckCircle, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Registration = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [hasUploadedFile, setHasUploadedFile] = useState(false);
   const [formData, setFormData] = useState({
     teamName: '',
     category: '',
@@ -26,53 +26,24 @@ const Registration = () => {
     memberNames: '',
   });
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type and size
-    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/jpg', 'video/mp4', 'video/avi', 'video/mov', 'video/wmv'];
-    const maxSize = 10 * 1024 * 1024; // 10MB
-
-    if (!allowedTypes.includes(file.type)) {
-      toast({
-        title: "Invalid File Type",
-        description: "Please upload PDF, DOC, DOCX, JPG, JPEG, PNG, MP4, AVI, MOV, or WMV files only.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (file.size > maxSize) {
-      toast({
-        title: "File Too Large",
-        description: "Please upload files smaller than 10MB.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Store the selected file
-    setSelectedFile(file);
+  const handleFileUploadRedirect = () => {
+    // Open Google Form in a new tab
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLSf-c93pUvjIdyURJmacxhZJGvRDXewHcL4CZ9FZ2nfUMhoPcw/viewform?usp=sharing&ouid=110353930034514572159', '_blank');
+    
+    // Mark that user has been redirected for file upload
+    setHasUploadedFile(true);
     
     toast({
-      title: "File Selected! 📁",
-      description: `${file.name} is ready to upload with your registration.`,
+      title: "File Upload Form Opened! 📁",
+      description: "Please complete the file upload in the new tab, then return here to submit your registration.",
     });
   };
 
-  // Convert file to base64
-  const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const result = reader.result as string;
-        // Remove the data URL prefix (e.g., "data:application/pdf;base64,")
-        const base64 = result.split(',')[1];
-        resolve(base64);
-      };
-      reader.onerror = error => reject(error);
+  const handleMarkFileUploaded = () => {
+    setHasUploadedFile(true);
+    toast({
+      title: "File Upload Confirmed! ✅",
+      description: "Thank you for confirming your file upload. You can now submit your registration.",
     });
   };
 
@@ -96,7 +67,7 @@ const Registration = () => {
     
     try {
       // Prepare submission data
-      const submissionData: any = {
+      const submissionData = {
         timestamp: new Date().toISOString(),
         teamName: formData.teamName,
         category: formData.category,
@@ -108,26 +79,9 @@ const Registration = () => {
         projectTitle: formData.projectTitle,
         projectDescription: formData.projectDescription,
         track: formData.track,
-        memberNames: formData.memberNames || 'Not provided'
+        memberNames: formData.memberNames || 'Not provided',
+        fileUploaded: hasUploadedFile ? 'Yes' : 'No'
       };
-
-      // Handle file upload if present
-      if (selectedFile) {
-        try {
-          const base64Data = await fileToBase64(selectedFile);
-          submissionData.fileData = base64Data;
-          submissionData.fileName = selectedFile.name;
-          submissionData.fileType = selectedFile.type;
-          submissionData.fileSize = selectedFile.size;
-        } catch (fileError) {
-          console.error('Error processing file:', fileError);
-          toast({
-            title: "File Processing Error",
-            description: "There was an error processing your file. Submitting without file.",
-            variant: "destructive",
-          });
-        }
-      }
 
       console.log('Submitting form data to Google Sheets:', submissionData);
 
@@ -152,8 +106,8 @@ const Registration = () => {
       
       toast({
         title: "Registration Successful! 🎉",
-        description: selectedFile 
-          ? `Your registration and file "${selectedFile.name}" have been submitted successfully!`
+        description: hasUploadedFile 
+          ? "Your registration has been submitted successfully! Don't forget to complete the file upload if you haven't already."
           : "Your registration has been submitted successfully!",
       });
 
@@ -171,7 +125,7 @@ const Registration = () => {
         track: '',
         memberNames: '',
       });
-      setSelectedFile(null);
+      setHasUploadedFile(false);
 
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -381,29 +335,57 @@ const Registration = () => {
                 </div>
 
                 {/* File Upload Section */}
-                <div className="space-y-2">
-                  <Label htmlFor="projectFile" className="flex items-center gap-2">
+                <div className="space-y-4">
+                  <Label className="flex items-center gap-2">
                     <Upload className="h-4 w-4" />
                     Project Document/Video (Optional)
                   </Label>
-                  <div className="space-y-2">
-                    <Input
-                      id="projectFile"
-                      type="file"
-                      onChange={handleFileUpload}
-                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.mp4,.avi,.mov,.wmv"
-                      disabled={isSubmitting}
-                      className="cursor-pointer"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      Upload project proposal, design sketches, demo videos, or related documents (PDF, DOC, DOCX, JPG, PNG, MP4, AVI, MOV, WMV - Max 10MB)
-                    </p>
-                    {selectedFile && (
-                      <div className="flex items-center gap-2 text-sm text-green-600">
-                        <CheckCircle className="h-4 w-4" />
-                        File selected: {selectedFile.name}
-                      </div>
-                    )}
+                  
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center space-y-4">
+                    <div className="space-y-2">
+                      <Upload className="h-12 w-12 text-gray-400 mx-auto" />
+                      <p className="text-sm text-muted-foreground">
+                        Upload project proposal, design sketches, demo videos, or related documents
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Supported formats: PDF, DOC, DOCX, JPG, PNG, MP4, AVI, MOV, WMV
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <Button 
+                        type="button"
+                        onClick={handleFileUploadRedirect}
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                        disabled={isSubmitting}
+                      >
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Upload Files via Google Form
+                      </Button>
+                      
+                      {hasUploadedFile ? (
+                        <div className="flex items-center justify-center gap-2 text-sm text-green-600">
+                          <CheckCircle className="h-4 w-4" />
+                          File upload completed! ✅
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          <p className="text-xs text-muted-foreground">
+                            After uploading files, click below to confirm:
+                          </p>
+                          <Button 
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={handleMarkFileUploaded}
+                            disabled={isSubmitting}
+                          >
+                            <CheckCircle className="mr-2 h-4 w-4" />
+                            I've Completed File Upload
+                          </Button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
 
