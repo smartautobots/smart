@@ -8,3 +8,5 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.log('VITE_SUPABASE_URL:', supabaseUrl ? 'Set' : 'Missing')
   console.log('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? 'Set' : 'Missing')
 }
+
+export const supabase = createClient(supabaseUrl!, supabaseAnonKey!)
