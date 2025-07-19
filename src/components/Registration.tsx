@@ -68,7 +68,6 @@ const Registration = () => {
     try {
       // Prepare submission data
       const submissionData = {
-        timestamp: new Date().toISOString(),
         teamName: formData.teamName,
         category: formData.category,
         leaderName: formData.leaderName,
@@ -77,15 +76,14 @@ const Registration = () => {
         institution: formData.institution,
         teamSize: formData.teamSize,
         projectTitle: formData.projectTitle,
-        projectDescription: formData.projectDescription,
         track: formData.track,
-        memberNames: formData.memberNames || 'Not provided',
-        fileUploaded: hasUploadedFile ? 'Yes' : 'No'
+        projectDescription: formData.projectDescription,
+        memberNames: formData.memberNames || 'Not provided'
       };
 
       console.log('Submitting form data to Google Sheets:', submissionData);
 
-      const response = await fetch('https://script.google.com/macros/s/AKfycby2SFusbWGMQ8DtnZ4pti2UNONPqCJewZeiIprE6QBn2c2lr-BT1sR2c2uH3qi1lSSN/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbxzHLyaMwtYrqctkZmp7rl0yhNBo_LM5k-zC_7mmi6gbjhcw_xHPCtbjv09J-anvFA/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,22 +91,30 @@ const Registration = () => {
         body: JSON.stringify(submissionData),
       });
 
-      // Try to parse response (Google Apps Script returns JSON)
+      const responseText = await response.text();
+      console.log('Raw response:', responseText);
+      
       let result;
-      try {
-        const responseText = await response.text();
-        result = JSON.parse(responseText);
-        console.log('Server response:', result);
-      } catch (parseError) {
-        console.log('Could not parse response as JSON, assuming success');
-        result = { success: true };
+      if (responseText.trim()) {
+        try {
+          result = JSON.parse(responseText);
+        } catch (parseError) {
+          console.log('Could not parse response as JSON:', parseError);
+          result = { success: true, message: 'Registration submitted successfully!' };
+        }
+      } else {
+        result = { success: true, message: 'Registration submitted successfully!' };
+      }
+      
+      console.log('Parsed result:', result);
+      
+      if (result.success === false) {
+        throw new Error(result.message || 'Server returned error');
       }
       
       toast({
         title: "Registration Successful! 🎉",
-        description: hasUploadedFile 
-          ? "Your registration has been submitted successfully! Don't forget to complete the file upload if you haven't already."
-          : "Your registration has been submitted successfully!",
+        description: "Your registration has been submitted successfully! Check your email for confirmation.",
       });
 
       // Reset form after successful submission
@@ -131,7 +137,7 @@ const Registration = () => {
       console.error('Error submitting form:', error);
       toast({
         title: "Submission Error",
-        description: "There was an error submitting your registration. Please try again or contact support.",
+        description: error.message || "There was an error submitting your registration. Please try again.",
         variant: "destructive",
       });
     } finally {
