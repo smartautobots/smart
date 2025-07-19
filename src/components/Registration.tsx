@@ -7,13 +7,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Mail, Phone, School, FileText, Loader2, Upload, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/lib/supabase';
 
 const Registration = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
     teamName: '',
     category: '',
@@ -26,7 +24,6 @@ const Registration = () => {
     projectDescription: '',
     track: '',
     memberNames: '',
-    projectFileUrl: ''
   });
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,13 +31,13 @@ const Registration = () => {
     if (!file) return;
 
     // Validate file type and size
-    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/jpg'];
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/jpg', 'video/mp4', 'video/avi', 'video/mov', 'video/wmv'];
     const maxSize = 10 * 1024 * 1024; // 10MB
 
     if (!allowedTypes.includes(file.type)) {
       toast({
         title: "Invalid File Type",
-        description: "Please upload PDF, DOC, DOCX, JPG, JPEG, or PNG files only.",
+        description: "Please upload PDF, DOC, DOCX, JPG, JPEG, PNG, MP4, AVI, MOV, or WMV files only.",
         variant: "destructive",
       });
       return;
@@ -55,112 +52,28 @@ const Registration = () => {
       return;
     }
 
-    setIsUploading(true);
+    // Store the selected file
+    setSelectedFile(file);
+    
+    toast({
+      title: "File Selected! 📁",
+      description: `${file.name} is ready to upload with your registration.`,
+    });
+  };
 
-    try {
-      // Check if Supabase is properly configured
-      if (!supabase) {
-        throw new Error('Supabase client not initialized');
-      }
-
-      // Create a unique filename
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `project-files/${fileName}`;
-
-      console.log('Attempting to upload file:', fileName);
-      
-      // Try to upload file to Supabase Storage
-      const { data, error } = await supabase.storage
-        .from('challenge-files')
-        .upload(filePath, file);
-
-      if (error) {
-        console.error('Supabase upload error:', error);
-        
-        // If bucket doesn't exist, try to create it
-        if (error.message.includes('Bucket not found')) {
-          console.log('Bucket not found, trying to create it...');
-          
-          const { error: bucketError } = await supabase.storage.createBucket('challenge-files', {
-            public: true,
-            allowedMimeTypes: allowedTypes,
-            fileSizeLimit: maxSize
-          });
-          
-          if (bucketError) {
-            console.error('Error creating bucket:', bucketError);
-            throw new Error(`Failed to create storage bucket: ${bucketError.message}`);
-          }
-          
-          // Retry upload after creating bucket
-          const { data: retryData, error: retryError } = await supabase.storage
-            .from('challenge-files')
-            .upload(filePath, file);
-            
-          if (retryError) {
-            throw retryError;
-          }
-          
-          console.log('File uploaded successfully after bucket creation:', retryData);
-        } else {
-          throw error;
-        }
-      } else {
-        console.log('File uploaded successfully:', data);
-      }
-
-      // Get public URL
-      const { data: urlData } = supabase.storage
-        .from('challenge-files')
-        .getPublicUrl(filePath);
-
-      if (!urlData?.publicUrl) {
-        throw error;
-      }
-
-      const publicUrl = urlData.publicUrl;
-      console.log('File public URL:', publicUrl);
-
-      setUploadedFile(file.name);
-      setFormData(prev => ({ ...prev, projectFileUrl: publicUrl }));
-
-      toast({
-        title: "File Uploaded Successfully! 📁",
-        description: `${file.name} has been uploaded.`,
-      });
-
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      
-      let errorMessage = "There was an error uploading your file. Please try again.";
-      
-      if (error instanceof Error) {
-        if (error.message.includes('not initialized')) {
-          errorMessage = "Storage service not available. Please check your connection.";
-        } else if (error.message.includes('Bucket not found')) {
-          errorMessage = "Storage bucket not found. Please contact support.";
-        } else if (error.message.includes('permission')) {
-          errorMessage = "Permission denied. Please check your access rights.";
-        } else {
-          errorMessage = `Upload failed: ${error.message}`;
-        }
-      }
-      
-      toast({
-        title: "Upload Failed",
-        description: errorMessage,
-        variant: "destructive",
-      });
-      
-      // Reset file input
-      const fileInput = document.getElementById('projectFile') as HTMLInputElement;
-      if (fileInput) {
-        fileInput.value = '';
-      }
-    } finally {
-      setIsUploading(false);
-    }
+  // Convert file to base64
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        // Remove the data URL prefix (e.g., "data:application/pdf;base64,")
+        const base64 = result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = error => reject(error);
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -180,37 +93,68 @@ const Registration = () => {
     }
 
     setIsSubmitting(true);
-    console.log('Submitting form data to Google Sheets:', formData);
-
+    
     try {
+      // Prepare submission data
+      const submissionData: any = {
+        timestamp: new Date().toISOString(),
+        teamName: formData.teamName,
+        category: formData.category,
+        leaderName: formData.leaderName,
+        leaderEmail: formData.leaderEmail,
+        leaderPhone: formData.leaderPhone,
+        institution: formData.institution,
+        teamSize: formData.teamSize,
+        projectTitle: formData.projectTitle,
+        projectDescription: formData.projectDescription,
+        track: formData.track,
+        memberNames: formData.memberNames || 'Not provided'
+      };
+
+      // Handle file upload if present
+      if (selectedFile) {
+        try {
+          const base64Data = await fileToBase64(selectedFile);
+          submissionData.fileData = base64Data;
+          submissionData.fileName = selectedFile.name;
+          submissionData.fileType = selectedFile.type;
+          submissionData.fileSize = selectedFile.size;
+        } catch (fileError) {
+          console.error('Error processing file:', fileError);
+          toast({
+            title: "File Processing Error",
+            description: "There was an error processing your file. Submitting without file.",
+            variant: "destructive",
+          });
+        }
+      }
+
+      console.log('Submitting form data to Google Sheets:', submissionData);
+
       const response = await fetch('https://script.google.com/macros/s/AKfycby2SFusbWGMQ8DtnZ4pti2UNONPqCJewZeiIprE6QBn2c2lr-BT1sR2c2uH3qi1lSSN/exec', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          timestamp: new Date().toISOString(),
-          teamName: formData.teamName,
-          category: formData.category,
-          leaderName: formData.leaderName,
-          leaderEmail: formData.leaderEmail,
-          leaderPhone: formData.leaderPhone,
-          institution: formData.institution,
-          teamSize: formData.teamSize,
-          projectTitle: formData.projectTitle,
-          projectDescription: formData.projectDescription,
-          track: formData.track,
-          memberNames: formData.memberNames || 'Not provided',
-          projectFileUrl: formData.projectFileUrl || 'No file uploaded'
-        }),
+        body: JSON.stringify(submissionData),
       });
 
-      console.log('Form submission completed');
+      // Try to parse response (Google Apps Script returns JSON)
+      let result;
+      try {
+        const responseText = await response.text();
+        result = JSON.parse(responseText);
+        console.log('Server response:', result);
+      } catch (parseError) {
+        console.log('Could not parse response as JSON, assuming success');
+        result = { success: true };
+      }
       
       toast({
         title: "Registration Successful! 🎉",
-        description: "Your registration has been submitted and saved to our records. We'll contact you soon with further details.",
+        description: selectedFile 
+          ? `Your registration and file "${selectedFile.name}" have been submitted successfully!`
+          : "Your registration has been submitted successfully!",
       });
 
       // Reset form after successful submission
@@ -226,9 +170,8 @@ const Registration = () => {
         projectDescription: '',
         track: '',
         memberNames: '',
-        projectFileUrl: ''
       });
-      setUploadedFile(null);
+      setSelectedFile(null);
 
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -441,30 +384,24 @@ const Registration = () => {
                 <div className="space-y-2">
                   <Label htmlFor="projectFile" className="flex items-center gap-2">
                     <Upload className="h-4 w-4" />
-                    Project Document (Optional)
+                    Project Document/Video (Optional)
                   </Label>
                   <div className="space-y-2">
                     <Input
                       id="projectFile"
                       type="file"
                       onChange={handleFileUpload}
-                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                      disabled={isSubmitting || isUploading}
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.mp4,.avi,.mov,.wmv"
+                      disabled={isSubmitting}
                       className="cursor-pointer"
                     />
                     <p className="text-xs text-muted-foreground">
-                      Upload project proposal, design sketches, or related documents (PDF, DOC, DOCX, JPG, PNG - Max 10MB)
+                      Upload project proposal, design sketches, demo videos, or related documents (PDF, DOC, DOCX, JPG, PNG, MP4, AVI, MOV, WMV - Max 10MB)
                     </p>
-                    {isUploading && (
-                      <div className="flex items-center gap-2 text-sm text-primary">
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Uploading file...
-                      </div>
-                    )}
-                    {uploadedFile && (
+                    {selectedFile && (
                       <div className="flex items-center gap-2 text-sm text-green-600">
                         <CheckCircle className="h-4 w-4" />
-                        File uploaded: {uploadedFile}
+                        File selected: {selectedFile.name}
                       </div>
                     )}
                   </div>
@@ -475,12 +412,12 @@ const Registration = () => {
                     type="submit" 
                     size="lg" 
                     className="bg-primary hover:bg-primary-dark text-white px-12 py-3 text-lg"
-                    disabled={isSubmitting || isUploading}
+                    disabled={isSubmitting}
                   >
-                    {isSubmitting || isUploading ? (
+                    {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        {isUploading ? 'Uploading File...' : 'Submitting Registration...'}
+                        Submitting Registration...
                       </>
                     ) : (
                       'Submit Registration'
