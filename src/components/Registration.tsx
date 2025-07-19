@@ -5,12 +5,15 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Mail, Phone, School, FileText, Loader2 } from 'lucide-react';
+import { Users, Mail, Phone, School, FileText, Loader2, Upload, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/lib/supabase';
 
 const Registration = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     teamName: '',
     category: '',
@@ -22,8 +25,77 @@ const Registration = () => {
     projectTitle: '',
     projectDescription: '',
     track: '',
-    memberNames: ''
+    memberNames: '',
+    projectFileUrl: ''
   });
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type and size
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png', 'image/jpg'];
+    const maxSize = 10 * 1024 * 1024; // 10MB
+
+    if (!allowedTypes.includes(file.type)) {
+      toast({
+        title: "Invalid File Type",
+        description: "Please upload PDF, DOC, DOCX, JPG, JPEG, or PNG files only.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (file.size > maxSize) {
+      toast({
+        title: "File Too Large",
+        description: "Please upload files smaller than 10MB.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsUploading(true);
+
+    try {
+      // Create a unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `project-files/${fileName}`;
+
+      // Upload file to Supabase Storage
+      const { data, error } = await supabase.storage
+        .from('challenge-files')
+        .upload(filePath, file);
+
+      if (error) {
+        throw error;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('challenge-files')
+        .getPublicUrl(filePath);
+
+      setUploadedFile(file.name);
+      setFormData(prev => ({ ...prev, projectFileUrl: publicUrl }));
+
+      toast({
+        title: "File Uploaded Successfully! 📁",
+        description: `${file.name} has been uploaded.`,
+      });
+
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      toast({
+        title: "Upload Failed",
+        description: "There was an error uploading your file. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +135,8 @@ const Registration = () => {
           projectTitle: formData.projectTitle,
           projectDescription: formData.projectDescription,
           track: formData.track,
-          memberNames: formData.memberNames || 'Not provided'
+          memberNames: formData.memberNames || 'Not provided',
+          projectFileUrl: formData.projectFileUrl || 'No file uploaded'
         }),
       });
 
@@ -86,8 +159,10 @@ const Registration = () => {
         projectTitle: '',
         projectDescription: '',
         track: '',
-        memberNames: ''
+        memberNames: '',
+        projectFileUrl: ''
       });
+      setUploadedFile(null);
 
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -296,17 +371,50 @@ const Registration = () => {
                   />
                 </div>
 
+                {/* File Upload Section */}
+                <div className="space-y-2">
+                  <Label htmlFor="projectFile" className="flex items-center gap-2">
+                    <Upload className="h-4 w-4" />
+                    Project Document (Optional)
+                  </Label>
+                  <div className="space-y-2">
+                    <Input
+                      id="projectFile"
+                      type="file"
+                      onChange={handleFileUpload}
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                      disabled={isSubmitting || isUploading}
+                      className="cursor-pointer"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Upload project proposal, design sketches, or related documents (PDF, DOC, DOCX, JPG, PNG - Max 10MB)
+                    </p>
+                    {isUploading && (
+                      <div className="flex items-center gap-2 text-sm text-primary">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Uploading file...
+                      </div>
+                    )}
+                    {uploadedFile && (
+                      <div className="flex items-center gap-2 text-sm text-green-600">
+                        <CheckCircle className="h-4 w-4" />
+                        File uploaded: {uploadedFile}
+                      </div>
+                    )}
+                  </div>
+                </div>
+
                 <div className="text-center pt-6">
                   <Button 
                     type="submit" 
                     size="lg" 
                     className="bg-primary hover:bg-primary-dark text-white px-12 py-3 text-lg"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isUploading}
                   >
-                    {isSubmitting ? (
+                    {isSubmitting || isUploading ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Submitting Registration...
+                        {isUploading ? 'Uploading File...' : 'Submitting Registration...'}
                       </>
                     ) : (
                       'Submit Registration'
