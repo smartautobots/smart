@@ -58,24 +58,69 @@ const Registration = () => {
     setIsUploading(true);
 
     try {
+      // Check if Supabase is properly configured
+      if (!supabase) {
+        throw new Error('Supabase client not initialized');
+      }
+
       // Create a unique filename
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = `project-files/${fileName}`;
 
-      // Upload file to Supabase Storage
+      console.log('Attempting to upload file:', fileName);
+      
+      // Try to upload file to Supabase Storage
       const { data, error } = await supabase.storage
         .from('challenge-files')
         .upload(filePath, file);
 
       if (error) {
-        throw error;
+        console.error('Supabase upload error:', error);
+        
+        // If bucket doesn't exist, try to create it
+        if (error.message.includes('Bucket not found')) {
+          console.log('Bucket not found, trying to create it...');
+          
+          const { error: bucketError } = await supabase.storage.createBucket('challenge-files', {
+            public: true,
+            allowedMimeTypes: allowedTypes,
+            fileSizeLimit: maxSize
+          });
+          
+          if (bucketError) {
+            console.error('Error creating bucket:', bucketError);
+            throw new Error(`Failed to create storage bucket: ${bucketError.message}`);
+          }
+          
+          // Retry upload after creating bucket
+          const { data: retryData, error: retryError } = await supabase.storage
+            .from('challenge-files')
+            .upload(filePath, file);
+            
+          if (retryError) {
+            throw retryError;
+          }
+          
+          console.log('File uploaded successfully after bucket creation:', retryData);
+        } else {
+          throw error;
+        }
+      } else {
+        console.log('File uploaded successfully:', data);
       }
 
       // Get public URL
-      const { data: { publicUrl } } = supabase.storage
+      const { data: urlData } = supabase.storage
         .from('challenge-files')
         .getPublicUrl(filePath);
+
+      if (!urlData?.publicUrl) {
+        throw error;
+      }
+
+      const publicUrl = urlData.publicUrl;
+      console.log('File public URL:', publicUrl);
 
       setUploadedFile(file.name);
       setFormData(prev => ({ ...prev, projectFileUrl: publicUrl }));
@@ -87,11 +132,32 @@ const Registration = () => {
 
     } catch (error) {
       console.error('Error uploading file:', error);
+      
+      let errorMessage = "There was an error uploading your file. Please try again.";
+      
+      if (error instanceof Error) {
+        if (error.message.includes('not initialized')) {
+          errorMessage = "Storage service not available. Please check your connection.";
+        } else if (error.message.includes('Bucket not found')) {
+          errorMessage = "Storage bucket not found. Please contact support.";
+        } else if (error.message.includes('permission')) {
+          errorMessage = "Permission denied. Please check your access rights.";
+        } else {
+          errorMessage = `Upload failed: ${error.message}`;
+        }
+      }
+      
       toast({
         title: "Upload Failed",
-        description: "There was an error uploading your file. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
+      
+      // Reset file input
+      const fileInput = document.getElementById('projectFile') as HTMLInputElement;
+      if (fileInput) {
+        fileInput.value = '';
+      }
     } finally {
       setIsUploading(false);
     }
