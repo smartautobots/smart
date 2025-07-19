@@ -68,7 +68,7 @@ function doPost(e) {
         const folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
 
         // Create a subfolder for this submission to keep files organized
-        const submissionFolderName = `${data.teamName || 'Unknown'}_${new Date().getTime()}`;
+        const submissionFolderName = \`${data.teamName || 'Unknown'}_${new Date().getTime()}`;
         const submissionFolder = folder.createFolder(submissionFolderName);
 
         // Upload file to Google Drive
@@ -183,7 +183,7 @@ function doGet(e) {
 
 function sendNotificationEmail(data, fileName, driveFileUrl) {
   try {
-    const subject = `New Registration: ${data.teamName || 'Unknown Team'}`;
+    const subject = \`New Registration: ${data.teamName || 'Unknown Team'}`;
     const body = `
 New registration received for Road Safety Innovation Challenge 2025:
 
