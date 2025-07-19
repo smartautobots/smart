@@ -83,7 +83,7 @@ const Registration = () => {
 
       console.log('Submitting form data to Google Sheets:', submissionData);
 
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxzHLyaMwtYrqctkZmp7rl0yhNBo_LM5k-zC_7mmi6gbjhcw_xHPCtbjv09J-anvFA/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyunDp-g5S--zLjIcnuhFNX3m2BrIEp4iPCYg4cfBXGIDyKr-kYMjKvFv9oGQQM8D77/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,10 +100,20 @@ const Registration = () => {
           result = JSON.parse(responseText);
         } catch (parseError) {
           console.log('Could not parse response as JSON:', parseError);
-          result = { success: true, message: 'Registration submitted successfully!' };
+          // If we can't parse JSON but got a response, assume success
+          if (response.ok) {
+            result = { success: true, message: 'Registration submitted successfully!' };
+          } else {
+            throw new Error('Server error occurred. Please try again.');
+          }
         }
       } else {
-        result = { success: true, message: 'Registration submitted successfully!' };
+        // Empty response but HTTP status is OK
+        if (response.ok) {
+          result = { success: true, message: 'Registration submitted successfully!' };
+        } else {
+          throw new Error('Server error occurred. Please try again.');
+        }
       }
       
       console.log('Parsed result:', result);
@@ -137,7 +147,7 @@ const Registration = () => {
       console.error('Error submitting form:', error);
       toast({
         title: "Submission Error",
-        description: error.message || "There was an error submitting your registration. Please try again.",
+        description: error instanceof Error ? error.message : "There was an error submitting your registration. Please try again.",
         variant: "destructive",
       });
     } finally {
