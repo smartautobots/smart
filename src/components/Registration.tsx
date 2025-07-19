@@ -83,8 +83,9 @@ const Registration = () => {
 
       console.log('Submitting form data to Google Sheets:', submissionData);
 
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyunDp-g5S--zLjIcnuhFNX3m2BrIEp4iPCYg4cfBXGIDyKr-kYMjKvFv9oGQQM8D77/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyyg_RekZPyK8fh00VJ7UQpHHDOBEbUde66TXJyYdrd2LG7FgYYi8tBFR-cuD19JTVr/exec', {
         method: 'POST',
+        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -93,6 +94,8 @@ const Registration = () => {
 
       const responseText = await response.text();
       console.log('Raw response:', responseText);
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
       
       let result;
       if (responseText.trim()) {
