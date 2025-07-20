@@ -85,9 +85,9 @@ const Registration = () => {
 
       const response = await fetch('https://script.google.com/macros/s/AKfycbyyg_RekZPyK8fh00VJ7UQpHHDOBEbUde66TXJyYdrd2LG7FgYYi8tBFR-cuD19JTVr/exec', {
         method: 'POST',
-        mode: 'cors',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'text/plain',
         },
         body: JSON.stringify(submissionData),
       });
