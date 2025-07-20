@@ -83,7 +83,7 @@ const Registration = () => {
 
       console.log('Submitting form data to Google Sheets:', submissionData);
 
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyyg_RekZPyK8fh00VJ7UQpHHDOBEbUde66TXJyYdrd2LG7FgYYi8tBFR-cuD19JTVr/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyikaY1bRM34hPxBu4eV_YFKvGGJAFhYwHYC6lcYCpjLVounVr-hPvRE-VcTOx_EAKc/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
