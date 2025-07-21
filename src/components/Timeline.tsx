@@ -6,56 +6,54 @@ const Timeline = () => {
   const rounds = [
     {
       id: 1,
-      title: "Online Registration & Abstract Submission",
+      title: "Abstract Submission",
       period: "21 July - 1 August",
       status: "upcoming",
       icon: CheckCircle,
       details: [
-        "Name, Category, Team Members",
-        "1-Page Idea Summary",
-        "Photo / Sketch / Tool Information"
+        "Google Form Submission",
+        "PDF Upload (Abstract/Sketch)",
+        "Team and Project Details"
       ],
       criteria: ["Innovation", "Practicality", "Impact on Society"]
     },
     {
       id: 2,
-      title: "Idea Validation & Mentorship",
-      period: "2 August - 10 August",
+      title: "Mentorship & Design",
+      period: "2 August - 12 August",
       status: "upcoming",
       icon: Clock,
       details: [
         "Mentoring for shortlisted teams",
-        "Design templates and seminars",
         "Zoom mentoring sessions",
-        "Progress report submission"
+        "Design templates provided",
+        "Progress guidance"
       ],
       output: ["Initial Mockup / Layout", "Concept PPT", "Pitch Script"]
     },
     {
       id: 3,
-      title: "Prototype / Campaign Presentation",
+      title: "Final Presentation",
       period: "12 August - 20 August",
       status: "upcoming",
       icon: Award,
       details: [
-        "Virtual OR Physical presentation",
-        "Pre-recorded demo (8 minutes)",
-        "Final presentation",
-        "Q&A with judges (5 minutes)"
+        "Virtual/Offline presentation",
+        "Project demonstration",
+        "Q&A with judges",
+        "Final evaluation"
       ],
       criteria: ["Creativity", "Implementation Feasibility", "Safety Impact", "Scalability", "Teamwork"]
     }
   ];
 
   const finalEvent = {
-    title: "Final Award Ceremony & Exhibition",
+    title: "Award Ceremony",
     date: "25 August, 2025",
-    venue: "Government Polytechnic, Ahmedabad",
+    venue: "To be announced",
     program: [
       "Chief Guest Speech",
       "Top 10 Presentations Live",
-      "Model Display",
-      "Documentary Screening",
       "Awards & Certificates"
     ]
   };

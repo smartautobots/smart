@@ -9,7 +9,7 @@ const Categories = () => {
       icon: GraduationCap,
       title: "School Category",
       target: "Grade 9-12",
-      examples: ["Poster Design", "Project Model", "Awareness Campaign"],
+      examples: ["Posters", "Models", "Awareness Campaigns"],
       color: "bg-blue-500",
       bgGradient: "from-blue-50 to-blue-100"
     },
@@ -18,7 +18,7 @@ const Categories = () => {
       icon: Building,
       title: "College Category",
       target: "Diploma, UG, PG",
-      examples: ["Mobile Application", "Drone Technology", "AI Solution"],
+      examples: ["Apps", "Campaigns", "Technology Solutions"],
       color: "bg-green-500",
       bgGradient: "from-green-50 to-green-100"
     },
@@ -27,7 +27,7 @@ const Categories = () => {
       icon: Globe,
       title: "Open Category",
       target: "Researchers, Professionals",
-      examples: ["Prototype", "Pilot Plan", "Advanced AI Solutions"],
+      examples: ["AI Prototypes", "Advanced Solutions", "Professional Projects"],
       color: "bg-purple-500",
       bgGradient: "from-purple-50 to-purple-100"
     }
@@ -36,17 +36,17 @@ const Categories = () => {
   const tracks = [
     {
       title: "Technology Track",
-      items: ["Smart Zebra Crossing", "AI-based Accident Detection", "Mobile Alert Apps"],
+      items: ["Smart Zebra Crossing", "AI-based Accident Detection", "Mobile App for Alert"],
       icon: "💻"
     },
     {
       title: "Education Track",
-      items: ["Short Films", "Street Plays", "Innovative Posters"],
+      items: ["Street Plays", "Films", "Posters"],
       icon: "📚"
     },
     {
       title: "Design Track",
-      items: ["Intersection Redesign", "Speed Calming Ideas", "Eco-friendly Signage"],
+      items: ["Redesign of Intersections", "Eco-Friendly Signage", "Infrastructure Design"],
       icon: "🎨"
     }
   ];

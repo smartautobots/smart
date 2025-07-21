@@ -10,7 +10,7 @@ const Prizes = () => {
       icon: Trophy,
       color: "from-yellow-400 to-yellow-600",
       borderColor: "border-yellow-400",
-      benefits: ["Cash Prize", "Certificate", "Incubation Support"],
+      benefits: ["Cash Prize", "Certificate", "Incubation"],
       rank: "🥇"
     },
     {
@@ -19,7 +19,7 @@ const Prizes = () => {
       icon: Medal,
       color: "from-gray-300 to-gray-500",
       borderColor: "border-gray-400",
-      benefits: ["Cash Prize", "Certificate", "Mentorship"],
+      benefits: ["Cash Prize", "Certificate"],
       rank: "🥈"
     },
     {
@@ -28,16 +28,16 @@ const Prizes = () => {
       icon: Award,
       color: "from-amber-600 to-amber-800",
       borderColor: "border-amber-600",
-      benefits: ["Cash Prize", "Certificate", "Guidance"],
+      benefits: ["Cash Prize", "Certificate"],
       rank: "🥉"
     },
     {
-      position: "Consolation Prize",
+      position: "Top 10",
       amount: "Top 10",
       icon: Star,
       color: "from-purple-400 to-purple-600",
       borderColor: "border-purple-400",
-      benefits: ["Appreciation Certificate", "Project Display", "Networking"],
+      benefits: ["Appreciation Certificates"],
       rank: "⭐"
     }
   ];

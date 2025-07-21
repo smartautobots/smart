@@ -41,7 +41,7 @@ const Hero = () => {
             <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20">
               <Calendar className="h-6 w-6 text-primary-light mx-auto mb-2" />
               <p className="text-white font-semibold">21 July - 25 August</p>
-              <p className="text-white/80 text-sm">2025</p>
+              <p className="text-white/80 text-sm">Launch: Guru Purnima</p>
             </div>
             <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 border border-white/20">
               <Users className="h-6 w-6 text-primary-light mx-auto mb-2" />

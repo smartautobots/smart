@@ -33,7 +33,7 @@ const About = () => {
             Challenge Objective
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            The main purpose of this challenge is to inspire youth to bring innovative ideas and solutions in the field of road safety
+            Raise awareness about road safety and promote innovative ideas among students and professionals to reduce accidents. Use education, technology, and design to improve road safety infrastructure.
           </p>
         </div>
 

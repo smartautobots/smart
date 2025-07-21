@@ -12,9 +12,9 @@ const Footer = () => {
   ];
 
   const importantDates = [
-    { event: "Registration Opens", date: "21 July 2025" },
-    { event: "Round 1 Ends", date: "1 August 2025" },
-    { event: "Final Event", date: "25 August 2025" }
+    { event: "Launch Date", date: "21 July 2025 (Guru Purnima)" },
+    { event: "Abstract Deadline", date: "1 August 2025" },
+    { event: "Award Ceremony", date: "25 August 2025" }
   ];
 
   return (

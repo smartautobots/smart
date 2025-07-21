@@ -9,26 +9,26 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      info: "roadsafety2025@innovationlab.in",
-      link: "mailto:roadsafety2025@innovationlab.in"
+      info: "pilab909090@gmail.com",
+      link: "mailto:pilab909090@gmail.com"
     },
     {
       icon: Phone,
       title: "Phone",
-      info: "+91 98765 43210",
-      link: "tel:+919876543210"
+      info: "+91 98259 02865",
+      link: "tel:+919825902865"
     },
     {
       icon: MapPin,
       title: "Location",
-      info: "Government Polytechnic, Ahmedabad",
+      info: "Project and Innovation Lab",
       link: "#"
     },
     {
       icon: Globe,
-      title: "Website",
-      info: "www.roadsafetychallenge2025.in",
-      link: "https://www.roadsafetychallenge2025.in"
+      title: "Instagram",
+      info: "@pilab_gpa",
+      link: "https://instagram.com/pilab_gpa"
     }
   ];
 
